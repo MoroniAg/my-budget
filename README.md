@@ -1,4 +1,6 @@
 # My Budget Application
+# Schedule
+[Activity Schedule](https://1drv.ms/x/s!Au1KtlI1vuAm8gKRqe8puHwz7b4i?e=cbQGC8) 
 # Description 
 The MyBudget Project is an application that seeks to assist people in managing their personal finances. The application provides an intuitive and easy to use interface that allows users to enter their daily income and expenses. Users can set spending goals and the app will show them their progress towards those goals. In addition, the application has the ability to generate reports and graphs that help users visualize their financial situation.
 The application also has a reminders feature that helps users make payments and meet their financial obligations. Users can set reminders for bill due dates and other important payments. The application also has the ability to send notifications to users to remind them about their upcoming payments and due dates.
