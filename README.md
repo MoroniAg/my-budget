@@ -17,3 +17,5 @@ The application to be developed is mainly aimed at personal budget management. S
 7. **Intuitive user interface:** The application shall have an intuitive and user-friendly user interface to make the process of recording income and expenses as simple as possible for the user.
 # Requirements Analysis
 The link to complete requirements file is here: [Requirements Analysis](https://1drv.ms/w/s!Au1KtlI1vuAm8gsriYkYr7Cuhsu1?e=drr2g5)
+# Architecture Design 
+The link to complete Architecture design is here: [Architecture Design]( https://1drv.ms/w/s!Au1KtlI1vuAm8g9iceFAOwwcGBdm?e=UQh0tE)
