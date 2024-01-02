@@ -36,4 +36,9 @@
 #form-login{
     width: 25rem;
     height: 22.5rem; 
+    z-index: 10;
+}
+
+.z-index-100{
+    z-index: -100;
 }

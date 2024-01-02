@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "primereact/resources/themes/lara-light-indigo/theme.css"
@@ -6,9 +6,11 @@ import "primereact/resources/primereact.min.css"
 import { Button } from 'primereact/button';
 import { Image } from 'primereact/image';
 import { InputText } from 'primereact/inputtext';
-import { classNames } from 'primereact/utils';
 import './Login.css'
 import "/node_modules/primeflex/primeflex.css"
+import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyCLhWI5LSFTHlDktTrgchJisrCs8n-OG8E",
@@ -35,24 +37,54 @@ const signInWithEmailAndPasswordFn = async (email: string, password: string) => 
 }
 
 export default function Login() {
+
+    const { handleSubmit, control } = useForm();
+    
+    const onSubmit = (data: FormData) => {
+        signInWithEmailAndPasswordFn(data.email, data.password);
+    };
     return (
-        <div id='box-login' >
-            <div className="block text-center">
-                <Image id='logo' src='/src/assets/logo-1.png' alt='logo'></Image>
-            </div>
-            <div className="flex text-center align-items-center justify-content-center">
-                <div id="form-login" className='flex align-items-center justify-content-center'>
-                    <div className="block">
-                        <InputText placeholder='Usuario/Email'></InputText>
-                        <InputText className='mt-3' placeholder='Contraseña'></InputText>
-                        <Button
-                            onClick={() => signInWithEmailAndPasswordFn("moroniaguilera1993@gmail.com", "asdf1234@#")}
-                            label='Ingresar'
-                            className={classNames('btn-budget', 'mt-8')}
-                        />
+        <form onSubmit={handleSubmit(onSubmit as SubmitHandler<FieldValues>)} className='z-index-100'>
+            <div id='box-login' >
+                <div className="block text-center">
+                    <Image id='logo' src='/src/assets/logo-1.png' alt='logo'></Image>
+                </div>
+                <div className="flex text-center align-items-center justify-content-center">
+                    <div id="form-login" className='flex align-items-center justify-content-center'>
+                        <div className="block">
+                            <Controller
+                                name="email"
+                                control={control}
+                                defaultValue=""
+                                rules={{ required: "Email is required" }}
+                                render={({ field }) =>
+                                    <InputText {...field} placeholder='Usuario/Email' />}
+                            />
+                            {/* {errors.email && <p>{errors.email.message}</p>} */}
+                            <Controller
+                                name="password"
+                                control={control}
+                                defaultValue=""
+                                rules={{ required: "Password is required" }}
+                                render={({ field }) =>
+                                    <InputText {...field} className='mt-3' placeholder='Contraseña' type='password' />}
+                            />
+                            {/* {errors.password && <p>{errors.password.message}</p>} */}
+                            <Button
+                                type="submit"
+                                label='Ingresar'
+                                className='mt-8 btn-budget'
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     )
 }
+
+
+type FormData = {
+    email: string;
+    password: string;
+  };

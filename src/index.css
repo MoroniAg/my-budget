@@ -16,4 +16,10 @@ body{
   width: 100vw;
   height: 100vh;
   margin: 0;
+  position: relative;
+  z-index: -100;
 }
+ #root{
+  position: relative;
+  z-index: -100;
+ }
