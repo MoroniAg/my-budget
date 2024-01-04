@@ -38,8 +38,8 @@ const signInWithEmailAndPasswordFn = async (email: string, password: string) => 
 
 export default function Login() {
 
-    const { handleSubmit, control } = useForm();
-    
+    const { handleSubmit, control, formState: { errors } } = useForm();
+
     const onSubmit = (data: FormData) => {
         signInWithEmailAndPasswordFn(data.email, data.password);
     };
@@ -56,20 +56,28 @@ export default function Login() {
                                 name="email"
                                 control={control}
                                 defaultValue=""
-                                rules={{ required: "Email is required" }}
+                                rules={{ required: "El correo es requerido" }}
                                 render={({ field }) =>
-                                    <InputText {...field} placeholder='Usuario/Email' />}
+                                    <InputText {...field}
+                                        placeholder='Usuario/Email'
+                                        tooltip={errors.email && errors.email.message?.toString()}
+                                    />
+                                }
                             />
-                            {/* {errors.email && <p>{errors.email.message}</p>} */}
                             <Controller
                                 name="password"
                                 control={control}
                                 defaultValue=""
-                                rules={{ required: "Password is required" }}
+                                rules={{ required: "La contraseña es requerida" }}
                                 render={({ field }) =>
-                                    <InputText {...field} className='mt-3' placeholder='Contraseña' type='password' />}
+                                    <InputText {...field}
+                                        className='mt-3'
+                                        placeholder='Contraseña'
+                                        type='password'
+                                        tooltip={errors.password && errors.password.message?.toString()}
+                                    />
+                                }
                             />
-                            {/* {errors.password && <p>{errors.password.message}</p>} */}
                             <Button
                                 type="submit"
                                 label='Ingresar'
@@ -87,4 +95,4 @@ export default function Login() {
 type FormData = {
     email: string;
     password: string;
-  };
+};
