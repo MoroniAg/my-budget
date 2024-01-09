@@ -34,7 +34,7 @@ const signInWithEmailAndPasswordFn = async (email: string, password: string) => 
             Cookies.set('token', tokenResult.token)
             Cookies.set('expires', new Date(tokenResult.expirationTime).getTime().toString())
         })
-        // window.location.replace('/dashboard')
+        window.location.replace('/dashboard')
 
     }).catch((error) => {
         console.log("Error al autenticar usuario:", error);
