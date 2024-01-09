@@ -1,6 +1,6 @@
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { UserCredential, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "primereact/resources/themes/lara-light-indigo/theme.css"
 import "primereact/resources/primereact.min.css"
 import { Button } from 'primereact/button';
@@ -8,6 +8,8 @@ import { Image } from 'primereact/image';
 import { InputText } from 'primereact/inputtext';
 import './Login.css'
 import "/node_modules/primeflex/primeflex.css"
+import Cookies from 'js-cookie';
+
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 
@@ -26,11 +28,14 @@ const auth = getAuth(app);
 
 const signInWithEmailAndPasswordFn = async (email: string, password: string) => {
 
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("Usuario autenticado:", user);
-        // ...
+    signInWithEmailAndPassword(auth, email, password).then((userCredential: UserCredential) => {
+
+        userCredential.user.getIdTokenResult().then((tokenResult) => {
+            Cookies.set('token', tokenResult.token)
+            Cookies.set('expires', new Date(tokenResult.expirationTime).getTime().toString())
+        })
+        // window.location.replace('/dashboard')
+
     }).catch((error) => {
         console.log("Error al autenticar usuario:", error);
     })
