@@ -1,7 +1,7 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 12px;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body{
+body {
   background-color: #FFE6C7;
   width: 100vw;
   height: 100vh;
@@ -19,7 +19,8 @@ body{
   position: relative;
   z-index: -100;
 }
- #root{
+
+#root {
   position: relative;
   z-index: -100;
- }
+}
