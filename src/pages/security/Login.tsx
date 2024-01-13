@@ -1,6 +1,6 @@
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { UserCredential, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "primereact/resources/themes/lara-light-indigo/theme.css"
 import "primereact/resources/primereact.min.css"
 import { Button } from 'primereact/button';
@@ -8,6 +8,8 @@ import { Image } from 'primereact/image';
 import { InputText } from 'primereact/inputtext';
 import './Login.css'
 import "/node_modules/primeflex/primeflex.css"
+import Cookies from 'js-cookie';
+
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 
@@ -26,11 +28,14 @@ const auth = getAuth(app);
 
 const signInWithEmailAndPasswordFn = async (email: string, password: string) => {
 
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("Usuario autenticado:", user);
-        // ...
+    signInWithEmailAndPassword(auth, email, password).then((userCredential: UserCredential) => {
+
+        userCredential.user.getIdTokenResult().then((tokenResult) => {
+            Cookies.set('token', tokenResult.token)
+            Cookies.set('expires', new Date(tokenResult.expirationTime).getTime().toString())
+        })
+        window.location.replace('/dashboard')
+
     }).catch((error) => {
         console.log("Error al autenticar usuario:", error);
     })
@@ -38,8 +43,8 @@ const signInWithEmailAndPasswordFn = async (email: string, password: string) => 
 
 export default function Login() {
 
-    const { handleSubmit, control } = useForm();
-    
+    const { handleSubmit, control, formState: { errors } } = useForm();
+
     const onSubmit = (data: FormData) => {
         signInWithEmailAndPasswordFn(data.email, data.password);
     };
@@ -56,20 +61,28 @@ export default function Login() {
                                 name="email"
                                 control={control}
                                 defaultValue=""
-                                rules={{ required: "Email is required" }}
+                                rules={{ required: "El correo es requerido" }}
                                 render={({ field }) =>
-                                    <InputText {...field} placeholder='Usuario/Email' />}
+                                    <InputText {...field}
+                                        placeholder='Usuario/Email'
+                                        tooltip={errors.email && errors.email.message?.toString()}
+                                    />
+                                }
                             />
-                            {/* {errors.email && <p>{errors.email.message}</p>} */}
                             <Controller
                                 name="password"
                                 control={control}
                                 defaultValue=""
-                                rules={{ required: "Password is required" }}
+                                rules={{ required: "La contraseña es requerida" }}
                                 render={({ field }) =>
-                                    <InputText {...field} className='mt-3' placeholder='Contraseña' type='password' />}
+                                    <InputText {...field}
+                                        className='mt-3'
+                                        placeholder='Contraseña'
+                                        type='password'
+                                        tooltip={errors.password && errors.password.message?.toString()}
+                                    />
+                                }
                             />
-                            {/* {errors.password && <p>{errors.password.message}</p>} */}
                             <Button
                                 type="submit"
                                 label='Ingresar'
@@ -87,4 +100,4 @@ export default function Login() {
 type FormData = {
     email: string;
     password: string;
-  };
+};
