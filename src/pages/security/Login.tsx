@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { initializeApp } from 'firebase/app';
 import { UserCredential, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "primereact/resources/themes/lara-light-indigo/theme.css"
@@ -29,7 +30,7 @@ const auth = getAuth(app);
 const signInWithEmailAndPasswordFn = async (email: string, password: string) => {
 
     signInWithEmailAndPassword(auth, email, password).then((userCredential: UserCredential) => {
-
+        Cookies.set('email', 'userCredential.user.email')
         userCredential.user.getIdTokenResult().then((tokenResult) => {
             Cookies.set('token', tokenResult.token)
             Cookies.set('expires', new Date(tokenResult.expirationTime).getTime().toString())
@@ -42,10 +43,12 @@ const signInWithEmailAndPasswordFn = async (email: string, password: string) => 
 }
 
 export default function Login() {
+    const [isSubmit, setIsSubmit] = React.useState(false);
 
     const { handleSubmit, control, formState: { errors } } = useForm();
 
     const onSubmit = (data: FormData) => {
+        setIsSubmit(true);
         signInWithEmailAndPasswordFn(data.email, data.password);
     };
     return (
@@ -87,6 +90,7 @@ export default function Login() {
                                 type="submit"
                                 label='Ingresar'
                                 className='mt-8 btn-budget'
+                                disabled={isSubmit}
                             />
                         </div>
                     </div>
