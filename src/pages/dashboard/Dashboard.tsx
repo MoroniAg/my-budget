@@ -1,4 +1,3 @@
-import React from 'react'
 import CardValue from '../../components/CardValue'
 import './Dashboard.css'
 
