@@ -16,12 +16,12 @@ import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCLhWI5LSFTHlDktTrgchJisrCs8n-OG8E",
-    authDomain: "my-budget-302fe.firebaseapp.com",
-    projectId: "my-budget-302fe",
-    storageBucket: "my-budget-302fe.appspot.com",
-    messagingSenderId: "235968058030",
-    appId: "1:235968058030:web:829a91f4f97ce81f7f133f"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
