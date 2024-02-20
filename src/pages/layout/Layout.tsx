@@ -3,6 +3,9 @@ import './Layout.css'
 import { Image } from 'primereact/image';
 import { Button } from 'primereact/button';
 import { classNames } from 'primereact/utils';
+import { Menu } from 'primereact/menu';
+import { menuSidebar } from '../../utils/constants/MenuLabels';
+        
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -10,14 +13,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     const [sidebar, setSidebar] = React.useState(true)
     const [sidebarClass, setSidebarClass] = React.useState('')
 
-
-
     const hideSidebar = () => {
         const status = sidebar
         setSidebar(!status)
         setSidebarClass(!status ? 'fadein' : 'fadeout')
-
+        console.log(status)
     }
+
+
+
 
     return (
         <>
@@ -32,7 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="flex body-content m-5 ">
 
                     <div className={classNames(sidebarClass, 'sidebar flex border-round-xl bg-white')}  >
-                        <span>sidebar</span>
+                       <Menu model={menuSidebar}></Menu>
                     </div>
 
                     <div className="content ml-3 w-full">

@@ -15,35 +15,51 @@
 
 @keyframes expand {
     from {
-        transform: scaleX(0);
-        width:0;
+        transform: translateX(-150%);
+        /* width:0;
         margin-right: 0;
-        padding: 0;
+        padding: 0; */
     }
 
     to {
-        transform: scaleX(1);
-        width: 15rem;
+        transform: translateX(0);
+        /* width: 15rem;
         margin-right: 1rem;
-        padding: 1rem;
+        padding: 1rem; */
     }
 }
 
 @keyframes collapse {
     from {
-        transform: scaleX(1);
-        width: 15rem;
+        transform: translateX(0);
+        /* width: 15rem;
         margin-right: 1rem;
-        padding: 1rem;
+        padding: 1rem; */
     }
 
     to {
-        transform: scaleX(0);
-        width:0;
+        transform: translateX(-150%);
+        /* width:0;
         margin-right: 0;
-        padding: 0;
+        padding: 0; */
 
     }
+}
+
+@keyframes visibility {
+    from {
+       display: flex;
+       
+        /* margin-right: 1rem;
+        padding: 1rem; */
+    }
+
+    to {
+        display: none;
+        /* margin-right: 0;
+        padding: 0;  */
+    }
+    
 }
 
 .sidebar {
@@ -55,11 +71,16 @@
 }
 
 .fadeout {
-    animation: collapse 1s ease-out forwards;
+    animation: collapse 0.5s ease-out forwards, visibility 0.5s ease-out forwards;
+    
 
 }
 
 .fadein {
-    animation: expand 1s ease-in forwards;
+    animation: expand 0.5s ease-in forwards;
 
+}
+
+.sidebar>.p-menu{
+    border: none;
 }
